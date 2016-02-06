@@ -1,0 +1,32 @@
+---
+title: "OPTIMIZED CHOPSTICK LEGTH"
+output: html_document
+---
+
+* BASIC SUMMARY OF DATA
+
+```{r}
+df <- read.csv("chopstick-effectiveness.csv")
+dim(df)
+colnames(df)
+str(df)
+summary(df)
+unique(df$Chopstick.Length)
+```
+
+* EXPLORATORY PLOTS OF DATA
+
+```{r}
+hist(df$Food.Pinching.Efficiency)
+plot(df$Chopstick.Length, df$Food.Pinching.Efficiency, main = "PERFORMANCE VERSUS LENGTH")
+boxplot(df$Food.Pinching.Efficiency~df$Chopstick.Length, main = "BOXPLOTS")
+library(ggplot2)
+ggplot(data=df, aes(df$Food.Pinching.Efficiency)) + geom_histogram() + facet_wrap(~Chopstick.Length)
+```
+
+* STATISTICS ON DATA
+
+```{r}
+av <- aov(df$Food.Pinching.Efficiency ~ factor(df$Chopstick.Length) + Error(factor(Individual)/factor(Chopstick.Length)), data=df)
+summary(av)
+```
